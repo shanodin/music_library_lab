@@ -41,6 +41,25 @@ class Album
     return artist_object
   end
 
+  def update()
+    sql = "
+      UPDATE albums SET(
+        title,
+        genre
+      ) = (
+        $1, $2
+      )
+      WHERE id = $3;
+    "
+    SqlRunner.run(sql, [@title, @genre, @id])
+  end
 
+  def Album.find(id)
+    sql = "SELECT * FROM albums WHERE id = $1"
+    results = SqlRunner.run(sql, [@id])
+    album_hash = results[0]
+    album = Album.new(album_hash)
+    return album
+  end
 
 end
