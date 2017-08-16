@@ -34,6 +34,14 @@ class Artist
     SqlRunner.run(sql)
   end
 
+  def delete()
+    sql = "
+      DELETE FROM artists
+      WHERE id = $1;
+    "
+    SqlRunner.run(sql, [@id])
+  end
+
   def albums
     sql = "
       SELECT * FROM albums
@@ -65,5 +73,5 @@ class Artist
     artist = Artist.new(artist_hash)
     return artist
   end
-  
+
 end
